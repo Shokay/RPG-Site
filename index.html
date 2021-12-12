@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="Jolan Saint georges" >
+        <title>Combat sim</title>
+
+        <style>
+            body {
+                margin: 0%;
+                background-image: url("Image/fondsim.gif");
+                background-size:cover;
+                display:flex;
+                flex-direction: column-reverse;
+                height: 100%;
+            }
+
+            html {
+                height: 100%;
+            }
+
+            #fondDefVi{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background:url("Image/FondMenuVi.png") no-repeat;
+                background-size: cover;
+                height: 100%;
+                width: 100%;
+                visibility: visible;
+                position: absolute;
+                z-index:6;
+                
+            }
+
+            #InstructionDV{
+                text-align: center;
+                z-index:5;
+                color:white;
+                position: absolute;
+                visibility: visible;
+                top:5%;
+                width: 500px;
+                padding: 10px;
+                margin: 10px;
+                border: 3px solid white;  
+                background: rgba(0, 0, 0, 0.6);
+                border-radius: 25px;
+            }
+            #ButtonSoundOff{
+                position: absolute;
+                z-index:5;
+                left:10%;
+                top:10%;
+                width: 10%;
+                height: 10%;
+                visibility: visible;
+                cursor: pointer;
+            }
+            #ButtonSoundOn{
+                position: absolute;
+                z-index:5;
+                left:10%;
+                top:10%;
+                width: 10%;
+                height: 10%;
+                visibility: hidden;
+                cursor: pointer;
+            }
+
+            #EcritureDef{
+                visibility: hidden;
+                position: absolute;
+                z-index: 6;
+                cursor: pointer;
+            }
+
+            #EcritureVic{
+                visibility: hidden;
+                position: absolute;
+                z-index: 6; 
+                cursor: pointer;   
+            }
+
+            #EcriturePlay{
+                visibility: visible;
+                position: absolute;
+                z-index: 6; 
+                cursor: pointer;
+            }
+
+            #EcritureEgalité{
+                visibility: hidden;
+                position: absolute;
+                z-index: 6; 
+            }
+            #Herobloc {
+                border-radius: 25px;
+                display: flex; 
+                width: 500px;
+                padding: 10px;
+                margin: 10px;
+                border: 3px solid white;  
+                background: rgba(0, 0, 0, 0.6);
+                justify-content: space-between;
+            }
+
+            #Heroaction { 
+                border-radius: 25px;
+                margin: 10px;
+                width: 150px;
+                border: 3px solid white;  
+                background: rgba(0, 0, 0, 0.6);
+            }
+
+            #actionint{
+                font-size:20px;
+                margin: 15px;
+                color:white;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-evenly;
+            }
+
+            #scenario {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color:white;
+                font-size: 25px;
+                border-radius: 25px;
+                position: absolute;
+                top:20px;
+                height: 150px;
+                width: 550px;
+                padding: 10px;
+                margin: 10px;
+                border: 3px solid white;  
+                background: rgba(0, 0, 0, 0.6);
+            }
+
+            #inter1{
+                display:flex;
+                justify-content: center;
+                align-items: flex-end;
+            }
+
+
+            #imagesdiff{
+                display:flex;
+                justify-content:center;
+                justify-content: space-between;
+
+            }
+            #mob {
+                display:flex;
+                justify-content: flex-start;
+                align-items: center;
+                align-items: flex-end;
+                cursor: pointer;
+            }
+
+            #hero{
+                position: relative;
+                display:flex;
+                justify-content: flex-end;
+                align-items: center;
+                align-items: flex-end;
+                cursor: pointer;
+            }
+
+            #MamoxoP{
+                visibility: visible;
+            }
+
+            #GrodoP{
+                visibility: visible;
+            }
+
+            #BonyP{
+                visibility: visible;
+            }
+
+            #KrakosP{
+                visibility: visible;
+            }
+
+            #Mamoxo{
+                color:white;
+                font-size: 25px;        
+            }
+
+            #Grodo{
+                color:white;
+                font-size: 25px;      
+            }
+
+            #Krakos{
+                color:white;
+                font-size: 25px;      
+            }
+
+            #Bony{
+                color:white;
+                font-size: 25px;      
+            }
+
+            #santé{
+                color:white;
+                font-size: 20px;  
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                justify-content: space-evenly;
+            }
+
+            #mana{
+                color:white; 
+                font-size: 20px; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                justify-content: space-evenly;
+            }
+            #entourpetit1{
+                position:absolute;
+                z-index: 2;
+                visibility: hidden;
+            }
+
+            #entourpetit2{
+                position:absolute;
+                right:130px;
+                z-index: 2;
+                visibility: hidden;
+            }
+
+            #entourgrand1{
+                position:absolute;
+                right:260px;
+                z-index: 2;
+                visibility: hidden;
+                }
+
+            #entourgrand2{
+                position:absolute;
+                left:0px;
+                z-index: 2;
+                visibility: hidden;
+            }
+
+            #BlockMamoxo{
+                position:absolute;
+                left:0px;
+                z-index: 2;
+                visibility: hidden;
+            }
+
+            #BlockGrodo{
+                position:absolute;
+                bottom:10px;
+                right:260px;
+                z-index: 2;
+                visibility: hidden;
+            }
+
+            #BlockBony{
+                position:absolute;
+                bottom:10px;
+                right:130px;
+                z-index: 2;
+                visibility: hidden;
+            }
+
+            #BlockKrakos{
+                position:absolute;
+                bottom:10px;
+                z-index: 2;
+                visibility: hidden;
+            }
+
+            #DeathMamoxo{
+                position:absolute;
+                bottom:10px;
+                left:0px;
+                z-index: 4;
+                visibility: hidden;
+            }
+
+            #DeathGrodo{
+                position:absolute;
+                bottom:10px;
+                right:260px;
+                z-index: 4;
+                visibility: hidden;
+            }
+
+            #DeathBony{
+                position:absolute;
+                bottom:10px;
+                right:130px;
+                z-index: 4;
+                visibility: hidden;
+            }
+
+            #DeathKrakos{
+                position:absolute;
+                bottom:10px;
+                z-index: 4;
+                visibility: hidden;
+            }
+
+            #mob1{
+                visibility: visible;
+            }
+
+            #mob2{
+                visibility: visible;
+            }
+
+            #mob3{
+                visibility: visible;
+            }
+
+            #DeathRadish{
+                position:absolute;
+                z-index: 4;
+                visibility: hidden;
+            }
+
+            #DeathSlobmarlé{
+                position:absolute;
+                z-index: 4;
+                left:230px;
+                visibility: hidden;
+            }
+
+            #DeathHatharedé{
+                position:absolute;
+                z-index: 4;
+                left:370px;
+                visibility: hidden;
+            }
+
+            #RadishInfo{
+                border-radius: 25px;
+                position:absolute;
+                visibility: hidden;
+                color:white;
+                z-index: 3;
+                left:140px;
+                bottom:340px;
+                margin: 10px;
+                width: 120px;
+                text-align: center;
+                border: 3px solid white;  
+                background: rgba(0, 0, 0, 0.6);
+            }
+            
+            #SlobmarléInfo{
+                border-radius: 25px;
+                position:absolute;
+                visibility: hidden;
+                color:white;
+                z-index: 3;
+                left:320px;
+                bottom:320px;
+                margin: 10px;
+                width: 120px;
+                text-align: center;
+                border: 3px solid white;  
+                background: rgba(0, 0, 0, 0.6);
+            }
+
+            #HatharedéInfo{
+                border-radius: 25px;
+                position:absolute;
+                visibility: hidden;
+                color:white;
+                z-index: 3;
+                left:550px;
+                bottom:340px;
+                margin: 10px;
+                width: 120px;
+                text-align: center;
+                border: 3px solid white;  
+                background: rgba(0, 0, 0, 0.6);
+            }
+
+            #Heroaction{
+                cursor: pointer;
+
+            }
+
+            #AttaqueB{
+                visibility: visible;
+            }
+
+            #DefenseB{
+                visibility: visible;
+            }
+
+            #MagieB{
+                visibility: visible;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div id="fondDefVi">
+            <div id="ButtonSoundOff" onclick="MenuSoundOn()">
+                <img src="Image/SoundOff.png">
+            </div>
+            <div id="ButtonSoundOn" onclick="MenuSoundOff()">
+                <img src="Image/SoundOn.png">
+            </div>
+            <div id=InstructionDV> Cliquer sur le Bouton "jouer" pour lancer la partie ! </div>
+            <div id=EcritureDef onclick="Restart()"> 
+                <img src="Image/Defaitetxt.png">  
+            </div>
+            <div id="EcritureEgalité" onclick="Restart()">
+                <img src="Image/Egalitétxt.png">
+            </div>
+            <div id=EcritureVic onclick="Restart()">
+                <img src="Image/Victoiretxt.png">
+            </div>
+            <div id=EcriturePlay onclick="Jouer()">
+                <img src="Image/Playtxt.png">
+            </div>
+        </div>
+        <div id="inter1">
+            <div id="scenario">
+                Le Combat Commence 
+            </div>
+            <div id="Heroaction">
+                <div id="actionint">
+                    <div id="attaqueB" onclick="Nul()">
+                        attaque 
+                    </div>
+                    <div id="DefenseB" onclick="Nul()">
+                        defense 
+                    </div>
+                    <div id="MagieB" onclick="Nul()">
+                        magie 
+                    </div>
+                </div>
+            </div>
+            <div id="Herobloc">
+                <div id="namehero">
+                    <div id="Mamoxo">
+                        mamoxo: 
+                    </div>
+                    <div id="Grodo">
+                        grodo:
+                    </div>
+                    <div id="Bony">
+                        Bony:
+                    </div>
+                    <div id="Krakos">
+                        Krakos:
+                    </div>
+                </div>
+                <div id="santé">
+                    <div id="hpMamoxo">
+                        100/100
+                    </div>
+                    <div id="hpGrodo">
+                        100/100
+                    </div>
+                    <div id="hpBony">
+                        100/100
+                    </div>
+                    <div id="hpKrakos">
+                        100/100
+                    </div>
+                </div> 
+                <div id="mana">
+                    <div id="manaMamoxo">
+                        100 mp
+                    </div>
+                    <div id="manaGrodo">
+                        100 mp
+                    </div>
+                    <div id="manaBony">
+                        100 mp
+                    </div>
+                    <div id="manaKrakos">
+                        100 mp
+                    </div>
+                </div> 
+            </div>  
+        </div>
+        <div id="imagesdiff">
+            <div id="mob">
+                <span id="RadishInfo">Radish PV:<div id="pvgRadish">120</div></span>
+                <span id="SlobmarléInfo">Slobmarlé PV:<div id="pvgSlobmarlé">120</div></span>
+                <span id="HatharedéInfo">hatharedé PV:<div id="pvgHatharedé">120</div></span>
+                <div id="DeathRadish"> <img src="Image/mob1 death.png">  </div>
+                <div id="DeathSlobmarlé"> <img src="Image/mob2 death.png">  </div> 
+                <div id="DeathHatharedé"> <img src="Image/mob3 death.png">  </div>  
+                <div id="Radish" onclick="Nul()">
+                    <img src="Image/mob1.png" id="mob1">
+                </div>
+                <div id="Slobmarlé" onclick="Nul()">
+                    <img src="Image/mob2.png" id="mob2">
+                </div>
+                <div id="Hatharedé" onclick="Nul()">
+                    <img src="Image/mob3.png" id="mob3">
+                </div>
+            </div>
+            <div id="hero">
+                    <div id="entourpetit1">
+                        <img src="Image/entourage petit.png">
+                    </div>
+                    <div id="entourpetit2">
+                        <img src="Image/entourage petit.png">
+                    </div>
+                    <div id="entourgrand1">
+                        <img src="Image/entourage.png">
+                    </div>
+                    <div id="entourgrand2">
+                        <img src="Image/entourage.png">
+                    </div>
+                    <div id="MamoxoP" onclick="ActionMamaxo()">
+                        <img src="Image/hero1.png">
+                    </div> 
+                    <div id="GrodoP" onclick="ActionGrodo()">
+                        <img src="Image/hero2.png">
+                    </div>
+                    <div id="BonyP">
+                        <img src="Image/hero3.png" onclick="ActionBony()">
+                    </div>
+                    <div id="KrakosP">
+                        <img src="Image/hero4.png"  onclick="ActionKrakos()"> 
+                    </div>
+                    <div id="DeathMamoxo"> <img src="Image/hero1 death.png"> </div> 
+                    <div id="DeathGrodo"> <img src="Image/hero2 death.png"> </div>
+                    <div id="DeathBony"> <img src="Image/hero3 death.png"> </div> 
+                    <div id="DeathKrakos"> <img src="Image/hero4 death.png"> </div>         
+                    <div id="BlockMamoxo"> <img src="Image/Grosblocinv.png"> </div>
+                    <div id="BlockGrodo"> <img src="Image/Grosblocinv.png"> </div>
+                    <div id="BlockBony"> <img src="Image/Petitblocinv.png"> </div>
+                    <div id="BlockKrakos"> <img src="Image/Petitblocinv.png"> </div>     
+            
+            </div>    
+        </div>  
+    </body>     
+        <script src="js_simcombat.js" async></script>
+</html>
+

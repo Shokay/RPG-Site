@@ -1,0 +1,2 @@
+Attaque/AttaqueSpé sur allié----> valider comme une action
+Cas victoire/defaite en mm temps
